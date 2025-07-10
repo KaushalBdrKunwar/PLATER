@@ -77,35 +77,40 @@
 
 //-----------------------------------------//
 import { Avatar, Card, List, Typography } from "@material-tailwind/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useEffect, useState } from "react";
 import MealCategoryLoader from "./MealCategoryLoader";
 import { useNavigate } from "react-router";
+import { useApi } from "../../hooks/useApi";
 
 export default function MealCategory() {
   const nav = useNavigate();
 
-  const [data, setData] = useState();
-  const [load, setLoad] = useState(false);
-  const [err, setErr] = useState();
+  // const [data, setData] = useState();
+  // const [load, setLoad] = useState(false);
+  // const [err, setErr] = useState();
 
-  const getData = async () => {
-    setLoad(true);
-    try {
-      const response = await axios.get(
-        "https://www.themealdb.com/api/json/v1/1/categories.php"
-      );
-      setLoad(false);
-      setData(response.data);
-    } catch (err) {
-      setLoad(false);
-      setErr(err.message);
-    }
-  };
+  // const getData = async () => {
+  //   setLoad(true);
+  //   try {
+  //     const response = await axios.get(
+  //       "https://www.themealdb.com/api/json/v1/1/categories.php"
+  //     );
+  //     setLoad(false);
+  //     setData(response.data);
+  //   } catch (err) {
+  //     setLoad(false);
+  //     setErr(err.message);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const [load, data, err] = useApi(
+    "https://www.themealdb.com/api/json/v1/1/categories.php"
+  );
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   if (load) return <MealCategoryLoader />;
 
